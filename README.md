@@ -1,5 +1,6 @@
 # IT635 Music Database Project
 Author: Theodore J. Wagner, Jr.
+
 IT635 Spring 2020
 
 ### Overview
@@ -31,12 +32,12 @@ For simplicity, the albums in *catalog* are only the artists' studio albums and 
 ### Web Front End
 The web front end consists of two halves:
 
-##### Entry
+#### Entry
 This is where you can enter new data into any of the tables of the *music* database.
 
 The necessary data for each *input* is asked for of the user.
 
-##### Query
+#### Query
 This is where you can run queries on the *music* database.
 
 There are a total of 20 queries that have been designed.
