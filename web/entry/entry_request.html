@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>
+Music Database Record Entry
+</title>
+<style>
+p{
+	margin-top: 0;
+	margin-bottom: 0;
+}
+td,th{
+	padding: 4px;
+}
+div.inner{
+	margin-bottom: 1em;
+	margin-left: 1.5em;
+	background-color: paleturquoise;
+	padding: 5px;
+	padding-bottom: 15px;
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+//This script will hide all inner divs except for the corresponding one to the radio button that is selected
+$(document).ready(function(){
+	$("div.inner").hide();
+	$("input[name$='table']").click(function(){
+		var test = $(this).val();
+		$("div.inner").hide();
+		$("div#"+test).show();
+	});
+});	
+</script>
+</head>
+
+<body>
+<h1>Music Database Record Entry</h1> 
+<h4>There are 4 tables in the music database. Select each option to learn more about each table and see what attributes are needed.</h4>
+
+<div id="table_list">
+<form action="./record_entry.php" method="post">
+
+<input type="radio" id="artists" name="table" value="artists">
+<label for="artists">Artists</label></br>
+<div id="artists" class="inner">
+<p>Description: Contains all the artists in the database with their corresponding genre</p>
+</br>
+<table>
+<tr>
+<th>
+Table Attribute
+</th>
+<th>
+Data Type
+</th>
+</tr>
+<tr>
+<td>
+<label for="aname">Artist Name</label>
+</td>
+<td>
+varchar(50)
+</td>
+<td>
+<input type="text" id="aname" name="aname">
+</td>
+</tr>
+<tr>
+<td>
+<label for="agenre">Genre</label>
+</td>
+<td>
+varchar(20)
+</td>
+<td>
+<input type="text" id="agenre" name="agenre">
+</td>
+</tr>
+</table>
+</br>
+<input type="submit" value="Insert Record">
+</br>
+</div>
+
+<input type="radio" id="catalog" name="table" value="catalog">
+<label for="catalog">Catalog</label></br>
+<div id="catalog" class="inner">
+<p>Description: Contains every studio album and its track listing for each artist in the <i>artists</i> table</p>
+<p style="margin-top: 0.35em">User Notes: </p>
+<ul style="margin-top: 0.35em;">
+<li>If <i>Type</i>="song", then <i>Year</i> may be omitted.</li>
+<li>If <i>Type</i>="album", then <i>Song Title</i> may be omitted.</li>
+</ul>
+<table>
+<tr>
+<th>
+Table Attribute
+</th>
+<th>
+Data Type
+</th>
+</tr>
+<tr>
+<td>
+<label for="caid">ID</label>
+</td>
+<td>
+int(5) unsigned 
+</td>
+<td>
+<input type="text" id="caid" name="caid" disabled placeholder="auto_incremented">
+</td>
+</tr>
+<tr>
+<td>
+<label for="caname">Artist Name</label>
+</td>
+<td>
+varchar(50)
+</td>
+<td>
+<input type="text" id="caname" name="caname">
+</td>
+</tr>
+<tr>
+<td>
+<label for="catype">Type</label>
+</td>
+<td>
+enum
+</td>
+<td>
+<select id="catype" name="catype">
+<option value="song" selected>song</option>
+<option value="album">album</option>
+</select>
+</td>
+</tr>
+<tr>
+<td>
+<label for="casong">Song Title</label>
+</td>
+<td>
+varchar(100)
+</td>
+<td>
+<input type="text" id="casong" name="casong">
+</td>
+</tr>
+<tr>
+<td>
+<label for="caalbum">Album Title</label>
+</td>
+<td>
+varchar(100)
+</td>
+<td>
+<input type="text" id="caalbum" name="caalbum">
+</td>
+</tr>
+<tr>
+<td>
+<label for="cayear">Year
+</td>
+<td>
+year(4)
+</td>
+<td>
+<input type="number" id="cayear" name="cayear">
+</td>
+</tr>
+</dir>
+</table>
+</br>
+<input type="submit" value="Insert Record">
+</br>
+</div>
+
+<input type="radio" id="collaborations" name="table" value="collaborations">
+<label for="collaborations">Collaborations</label></br>
+<div id="collaborations" class="inner">
+<p>Description: Contains a reference to a song in <i>catalog</i> as well as the additional artist(s) on that song, separated by commas</p>
+<p style="margin-top: 0.35em;"><i>User Note: You can use the </i>get id <i>query to get the ID number to use in this entry.</i></p>
+</br>
+<table>
+<tr>
+<th>
+Table Attribute
+</th>
+<th>
+Data Type
+</th>
+</tr>
+<tr>
+<td>
+<label for="coid">Song ID</label>
+</td>
+<td>
+int(5) unsigned
+</td>
+<td>
+<input type="number" id="coid" name="coid">
+</td>
+</tr>
+<tr>
+<td>
+<label for="cocollab">Collaborator</label>
+</td>
+<td>
+varchar(50)
+</td>
+<td>
+<input type="text" id="cocollab" name="cocollab">
+</table>
+</br>
+<input type="submit" value="Insert Record">
+</br>
+</div>
+
+<input type="radio" id="certifications" name="table" value="certifications">
+<label for="certifications">Certifications</label></br>
+<div id="certifications" class="inner">
+<p>Description: Contains a reference to a song in <i>catalog</i> as well as the RIAA certification for that song</p>
+<p style="margin-top: 0.35em;"><i>User Note: You can use the </i>get id <i>query to get the ID number to use in this entry.</i></p> 
+</br>
+<table>
+<tr>
+<th>
+Table Attribute
+</th>
+<th>
+Data Type
+</th>
+</tr>
+<tr>
+<td>
+<label for="ceid">Song ID</label>
+</td>
+<td>
+int(5) unsigned
+</td>
+<td>
+<input type="number" id="ceid" name="ceid">
+</td>
+</tr>
+<tr>
+<td>
+<label for="cecert">Certification</label>
+</td>
+<td>
+varchar(30)
+</td>
+<td>
+<input type="text" id="cecert" name="cecert">
+</td>
+</tr>
+</table>
+</br>
+<input type="submit" value="Insert Record">
+</br>
+</div>
+
+</form>
+</div>
+</br></br>
+<a href="../index.html">IT635 Home</a>
+
+</body>
+</html>

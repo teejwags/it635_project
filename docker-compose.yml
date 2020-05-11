@@ -1,0 +1,20 @@
+version: '3.1'
+services:
+    db:
+        image: mariadb
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+        volumes:
+            - ./sql:/docker-entrypoint-initdb.d
+    web:
+        build: .
+        volumes:
+            - ./web:/var/www/html
+        ports:
+            - "8880:80"
+        depends_on:
+            - db
+    adminer:
+        image: adminer
+        ports:
+            - "8080:8080"

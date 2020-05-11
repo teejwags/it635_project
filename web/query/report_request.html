@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>
+Music Database Query Reports
+</title>
+<style>
+p.top{
+	margin-top: 0;
+	margin-bottom: 0.35em;
+}
+p.bottom{
+	margin-top: 0;
+	margin-bottom: 0;
+}
+div.inner{
+	margin-bottom: 1em;
+	margin-left: 1.5em;
+	background-color: lightsalmon;
+	padding: 5px;
+	padding-bottom: 15px;
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+//This script will hide all inner divs except for the corresponding one to the radio button that is selected
+$(document).ready(function(){
+	$("div.inner").hide();
+	$("input[name$='query']").click(function(){
+		var test = $(this).val();
+		$("div.inner").hide();
+		$("div#"+test).show();
+	});
+});
+</script>
+</head>
+
+<body>
+<h1>Music Database Query Reports</h1> 
+<h4>There are 20 different queries you can run on the music database. Select each option to learn more about the query and see what parameters are needed.</h4>
+
+<div id="query_list">
+<form action="./query_report.php" method="post">
+
+<!--the first 10 queries are catalog-centric -->
+<p class="top"><i>Catalog-Centric Queries</i></p>
+<input type="radio" id="query_10" name="query" value="query_10">
+<label for="query_10">get artists</label></br>
+<div id="query_10" class="inner">
+<p class="top">Description: Show complete list of artists with genre</p>
+<p class="top">User Input: none</p>
+<p class="bottom"><i>User Note: start here to get the names of artists you can use in the other queries</i></p>
+</br>
+<input type="submit" value="Submit Query">
+</br>
+</div>
+
+<input type="radio" id="query_11" name="query" value="query_11">
+<label for="query_11">get id</label></br>
+<div id="query_11" class="inner">
+<p class="top">Description: Get the ID value of a specified song or album from the <i>catalog</i> table</p>
+<p class="top">User Input: artist name, type (song or album), song/album title</p>
+<p class="bottom"><i>User Note: start here to get the ID to use if entering collaboration or certification records for this song/album</i></p>
+</br>
+<table>
+<tr>
+<td>
+<label for="artist_11">Artist Name:</label>
+</td>
+<td>
+<input type="text" id="artist_11" name="artist_11">
+</td>
+</tr>
+<tr>
+<td>
+<label for="type_11">Type:</label>
+</td>
+<td>
+<select id="type_11" name="type_11">
+<option value="song">song</option>
+<option value="album">album</option>
+</select>
+</td>
+</tr>
+<tr>
+<td>
+<label for="title_11">Song/Album Title:</label>
+</td>
+<td>
+<input type="text" id="title_11" name="title_11">
+</td>
+</tr>
+</table>
+</br>
+<input type="submit" value="Submit Query">
+</br>
+</div>
+
+<input type="radio" id="query_12" name="query" value="query_12">
+<label for="query_12">get entry by id</label><br>
+<div id="query_12" class="inner">
+<p class="top">Description: Get the <i>catalog</i> entry for a specified id</p>
+<p class="bottom">User Input: id</p>
+</br>
+<table>
+<tr>
+<td>
+<label for="id_12">ID:</label>
+</td>
+<td>
+<input type="number" id="id_12" name="id_12">
+</td>
+</tr>
+</table>
+</br>
+<input type="submit" value="Submit Query">
+</br>
+</div>
+
+<input type="radio" id="query_13" name="query" value="query_13">
+<label for="query_13">get album</label><br>
+<div id="query_13" class="inner">
+<p class="top">Description: Get the album that a specified song from a specified artist is found on</p>
+<p class="bottom">User Input: artist name, song title</p>
+</br>
+<table>
+<tr>
+<td>
+<label for="artist_13">Artist Name:</label>
+</td>
+<td>
+<input type="text" id="artist_13" name="artist_13">
+</td>
+</tr>
+<tr>
+<td>
+<label for="song_13">Song Title:</label>
+</td>
+<td>
+<input type="text" id="song_13" name="song_13">
+</td>
+</tr>
+</table>
+</br>
+<input type="submit" value="Submit Query">
+</br>
+</div>
+
+<input type="radio" id="query_14" name="query" value="query_14">
+<label for="query_14">artist album discography</label></br>
+<div id="query_14" class="inner">
+<p class="top">Description: List all albums of specified artist</p>
+<p class="bottom">User Input: artist name</p>
+</br>
+<table>
+<tr>
+<td>
+<label for="artist_14">Artist Name:</label>
+</td>
+<td>
+<input type="text" id="artist_14" name="artist_14">
+</td>
+</tr>
+</table>
+</br>
+<input type="submit" value="Submit Query">
+</br>
+</div>
+
+<input type="radio" id="query_15" name="query" value="query_15">
+<label for="query_15">artist album tracklist</label></br>
+<div id="query_15" class="inner">
+<p class="top">Description: List all tracks from specified album from specified artist, including collaborations</p>
+<p class="bottom">User Input: artist name, album name</p>
+</br>
+<table>
+<tr>
+<td>
+<label for="artist_15">Artist Name:</label>
+</td>
+<td>
+<input type="text" id="artist_15" name="artist_15">
+</td>
+</tr>
+<tr>
+<td>
+<label for="album_15">Album Name:</label>
+</td>
+<td>
+<input type="text" id="album_15" name="album_15">
+</td>
+</tr>
+</table>
+</br>
+<input type="submit" value="Submit Query">
+</br>
+</div>
+
+<input type="radio" id="query_16" name="query" value="query_16">
+<label for="query_16">artist full discography</label></br>
+<div id="query_16" class="inner">
+<p class="top">Description: List all tracks from all albums for specified artist, including collaborations</p>
+<p class="bottom">User Input: artist name</p>
+</br>
+<table>
+<tr>
+<td>
+<label for="artist_16">Artist Name:</label>
+</td>
+<td>
+<input type="text" id="artist_16" name="artist_16">
+</td>
+</tr>
+</table>
+</br>
+<input type="submit" value="Submit Query">
+</br>
+</div>
+
+<input type="radio" id="query_17" name="query" value="query_17">
+<label for="query_17">album detail</label></br>
+<div id="query_17" class="inner">
+<p class="top">Description: List all tracks (including collaborations) and certifications for specified album from specified artist</p>
+<p class="bottom">User Input: artist name, album name</p>
+</br>
+<table>
+<tr>
+<td>
+<label for="artist_17">Artist Name:</label>
+</td>
+<td>
+<input type="text" id="artist_17" name="artist_17">
+</td>
+</tr>
+<tr>
+<td>
+<label for="album_17">Album Name:</label>
+</td>
+<td>
+<input type="text" id="album_17" name="album_17">
+</td>
+</tr>
+</table>
+</br>
+<input type="submit" value="Submit Query">
+</br>
+</div>
+
+<input type="radio" id="query_18" name="query" value="query_18">
+<label for="query_18">artist detail</label></br>
+<div id="query_18" class="inner">
+<p class="top">Description: List all tracks (including collaborations) and certifications for all albums from specified artist</p>
+<p class="bottom">User Input: artist name</p>
+</br>
+<table>
+<tr>
+<td>
+<label for="artist_18">Artist Name:</label>
+</td>
+<td>
+<input type="text" id="artist_18" name="artist_18">
+</td>
+</tr>
+</table>
+</br>
+<input type="submit" value="Submit Query">
+</br>
+</div>
+
+<input type="radio" id="query_19" name="query" value="query_19">
+<label for="query_19">dump</label></br>
+<div id="query_19" class="inner">
+<p class="top">Description: Formatted dump of all tracks (including collaborations) and all certifications for all albums from all artists</p>
+<p class="bottom">User Input: none</p>
+</br>
+<input type="submit" value="Submit Query">
+</br>
+</div>
+
+<!--the last 10 queries are certification-centric -->
+</br>
+<p class="top"><i>Certification-Centric Queries</i></p>
+<input type="radio" id="query_20" name="query" value="query_20">
+<label for="query_20">artist successes</label></br>
+<div id="query_20" class="inner">
+<p class="top">Description: List all certifications for specified artist</p>
+<p class="bottom">User Input: artist name</p>
+</br>
+<table>
+<tr>
+<td>
+<label for="artist_20">Artist Name:</label>
+</td>
+<td>
+<input type="text" id="artist_20" name="artist_20">
+</td>
+</tr>
+</table>
+</br>
+<input type="submit" value="Submit Query">
+</br>
+</div>
+
+<input type="radio" id="query_21" name="query" value="query_21">
+<label for="query_21">artist successful solos</label></br>
+<div id="query_21" class="inner">
+<p class="top">Description: List all solo works that have certifications for specified artist</p>
+<p class="bottom">User Input: artist name</p>
+</br>
+<table>
+<tr>
+<td>
+<label for="artist_21">Artist Name:</label>
+</td>
+<td>
+<input type="text" id="artist_21" name="artist_21">
+</td>
+</tr>
+</table>
+</br>
+<input type="submit" value="Submit Query">
+</br>
+</div>
+
+<input type="radio" id="query_22" name="query" value="query_22">
+<label for="query_22">artist successful collabs</label></br>
+<div id="query_22" class="inner">
+<p class="top">Description: List all collaborations that have certifications for specified artist</p>
+<p class="bottom">User Input: artist name</p>
+</br>
+<table>
+<tr>
+<td>
+<label for="artist_22">Artist Name:</label>
+</td>
+<td>
+<input type="text" id="artist_22" name="artist_22">
+</td>
+</tr>
+</table>
+</br>
+<input type="submit" value="Submit Query">
+</br>
+</div>
+
+<input type="radio" id="query_23" name="query" value="query_23">
+<label for="query_23">all successes</label></br>
+<div id="query_23" class="inner">
+<p class="top">Description: List all certifications for all artists</p>
+<p class="bottom">User Input: none</p>
+</br>
+<input type="submit" value="Submit Query">
+</br>
+</div>
+
+<input type="radio" id="query_24" name="query" value="query_24">
+<label for="query_24">all successful solos</label></br>
+<div id="query_24" class="inner">
+<p class="top">Description: List all solo works that have certifications for all artists</p>
+<p class="bottom">User Input: none</p>
+</br>
+<input type="submit" value="Submit Query">
+</br>
+</div>
+
+<input type="radio" id="query_25" name="query" value="query_25">
+<label for="query_25">all successful collabs</label></br>
+<div id="query_25" class="inner">
+<p class="top">Description: List all collaborations that have certifications for all artists<p>
+<p class="bottom">User Input: none</p>
+</br>
+<input type="submit" value="Submit Query">
+</br>
+</div>
+
+<input type="radio" id="query_26" name="query" value="query_26">
+<label for="query_26">comparative success</label></br>
+<div id="query_26" class="inner">
+<p class="top">Description: Compare count of all certifications for all artists</p>
+<p class="bottom">User Input: none</p>
+</br>
+<input type="submit" value="Submit Query">
+</br>
+</div>
+
+<input type="radio" id="query_27" name="query" value="query_27">
+<label for="query_27">comparative success in genre</label></br>
+<div id="query_27" class="inner">
+<p class="top">Description: Compare count of all certifications for all artists in the specified genre</p>
+<p class="bottom">User Input: genre</p>
+</br>
+<table>
+<tr>
+<td>
+<label for="genre_27">Genre:</label>
+</td>
+<td>
+<input type="text" id="genre_27" name="genre_27">
+</td>
+</tr>
+</table>
+</br>
+<input type="submit" value="Submit Query">
+</br>
+</div>
+
+<input type="radio" id="query_28" name="query" value="query_28">
+<label for="query_28">comparative solo success</label></br>
+<div id="query_28" class="inner">
+<p class="top">Description: Compare count of all certifications for solo work only for all artists</p>
+<p class="bottom">User Input: none</p>
+</br>
+<input type="submit" value="Submit Query">
+</br>
+</div>
+
+<input type="radio" id="query_29" name="query" value="query_29">
+<label for="query_29">comparative solo success in genre</label></br>
+<div id="query_29" class="inner">
+<p class="top">Description: Compare count of all certifications for solo work only for all artists in the specified genre</p>
+<p class="bottom">User Input: genre</p>
+</br>
+<table>
+<tr>
+<td>
+<label for="genre_29">Genre:</label>
+</td>
+<td>
+<input type="text" id="genre_29" name="genre_29">
+</td>
+</tr>
+</table>
+</br>
+<input type="submit" value="Submit Query">
+</br>
+</div>
+
+</form>
+</div>
+</br></br>
+<a href="../index.html">IT635 Home</a>
+
+</body>
+</html>
