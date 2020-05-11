@@ -58,5 +58,5 @@ All other options on the adminer login page can remain the default.
 
 ### Author Note
 The artists that I have included in the database are some of the ones that I enjoy listening to, and some which I knew would provide a lot of relevant data for use in the queries.
-The data was all also entered manually (see the *dump* query to see how many records are in the *catalog* table, all entered by hand)
-I hope you enjoy this project as much as I did writing it.
+The data was all also entered manually (see the *dump* query to see how many records are in the *catalog* table, all entered by hand).
+I hope you enjoy this project as much as I did writing it!
